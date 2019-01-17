@@ -55,5 +55,11 @@ namespace FragmentNoteApp
             var table = db.Table<Note>();
             return table;
         }
+
+        public void DeleteNote(int id)
+        {
+            var note = db.Table<Note>().Where(x => x.Id == id);
+            db.Delete(note);
+        }
     }
 }

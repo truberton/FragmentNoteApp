@@ -15,8 +15,9 @@ namespace FragmentNoteApp
 {
     public class TitlesFragment : ListFragment
     {
-        int selectedPlayId;
+        public int selectedPlayId;
         bool showingTwoFragments;
+        DatabaseServices db;
 
         public TitlesFragment()
         {
@@ -27,10 +28,10 @@ namespace FragmentNoteApp
         {
             base.OnActivityCreated(savedInstanceState);
 
-            var databaseService = new DatabaseServices();
-            databaseService.CreateDatabase();
-            databaseService.CreateTableWithData();
-            var notes = databaseService.GetAllNotes();
+            db = new DatabaseServices();
+            db.CreateDatabase();
+            db.CreateTableWithData();
+            var notes = db.GetAllNotes();
 
             List<string> titles = new List<string>();
             foreach (var item in notes)
@@ -55,7 +56,6 @@ namespace FragmentNoteApp
             }
         }
 
-
         public override void OnSaveInstanceState(Bundle outState)
         {
             base.OnSaveInstanceState(outState);
@@ -70,6 +70,7 @@ namespace FragmentNoteApp
         void ShowPlayQuote(int playId)
         {
             selectedPlayId = playId;
+            ValueHolder.SelectedId = playId;
             if (showingTwoFragments)
             {
                 ListView.SetItemChecked(selectedPlayId, true);
