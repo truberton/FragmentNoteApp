@@ -26,7 +26,19 @@ namespace FragmentNoteApp
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
-            ListAdapter = new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItemActivated1, Notes.Titles);
+
+            var databaseService = new DatabaseServices();
+            databaseService.CreateDatabase();
+            databaseService.CreateTableWithData();
+            var notes = databaseService.GetAllNotes();
+
+            List<string> titles = new List<string>();
+            foreach (var item in notes)
+            {
+                titles.Add(item.Title);
+            }
+
+            ListAdapter = new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItemActivated1, titles);
 
             if (savedInstanceState != null)
             {
