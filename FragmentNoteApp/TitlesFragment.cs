@@ -34,10 +34,13 @@ namespace FragmentNoteApp
             var notes = db.GetAllNotes();
 
             List<string> titles = new List<string>();
+            List<int> ids = new List<int>(); 
             foreach (var item in notes)
             {
                 titles.Add(item.Title);
+                ids.Add(item.Id);
             }
+            ValueHolder.IdList = ids;
 
             ListAdapter = new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItemActivated1, titles);
 

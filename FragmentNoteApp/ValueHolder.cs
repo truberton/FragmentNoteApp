@@ -15,5 +15,7 @@ namespace FragmentNoteApp
     public class ValueHolder
     {
         public static int SelectedId { get; set; }
+
+        public static List<int> IdList { get; set; }
     }
 }

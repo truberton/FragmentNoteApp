@@ -29,9 +29,11 @@ namespace FragmentNoteApp
             db.CreateTable<Note>();
             if (db.Table<Note>().Count() == 0)
             {
-                var newNote = new Note();
-                newNote.Title = "Monday";
-                newNote.Description = "Eksamid";
+                var newNote = new Note
+                {
+                    Title = "Monday",
+                    Description = "Eksamid"
+                };
                 db.Insert(newNote);
                 newNote.Title = "Tuesday";
                 newNote.Description = "Varem tööle";
@@ -44,9 +46,11 @@ namespace FragmentNoteApp
 
         public void AddNote(string title, string description)
         {
-            var newNote = new Note();
-            newNote.Title = title;
-            newNote.Description = description;
+            var newNote = new Note
+            {
+                Title = title,
+                Description = description
+            };
             db.Insert(newNote);
         }
 
@@ -58,8 +62,9 @@ namespace FragmentNoteApp
 
         public void DeleteNote(int id)
         {
-            var note = db.Table<Note>().Where(x => x.Id == id);
-            db.Delete(note);
+            var noteToDelete = new Note();
+            noteToDelete.Id = ValueHolder.IdList[id];
+            db.Delete(noteToDelete);
         }
     }
 }
