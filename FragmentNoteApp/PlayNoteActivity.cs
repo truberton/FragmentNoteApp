@@ -26,10 +26,6 @@ namespace FragmentNoteApp
 
             var playId = Intent.Extras.GetInt("current_play_id", 0);
 
-            var detailsFrag = PlayNoteFragment.NewInstance(playId);
-            FragmentManager.BeginTransaction()
-                            .Add(Android.Resource.Id.Content, detailsFrag)
-                            .Commit();
         }
     }
 }

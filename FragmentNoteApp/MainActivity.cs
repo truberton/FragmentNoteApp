@@ -17,9 +17,9 @@ namespace FragmentNoteApp
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            var deleteBtn = FindViewById(Resource.Id.deleteBtn);
+            //var deleteBtn = FindViewById(Resource.Id.deleteBtn);
             var createBtn = FindViewById(Resource.Id.createBtn);
-            deleteBtn.Click += DeleteBtn_Click;
+            //deleteBtn.Click += DeleteBtn_Click;
             createBtn.Click += CreateBtn_Click;
         }
 
@@ -27,14 +27,15 @@ namespace FragmentNoteApp
         {
             var addActivity = new Intent(this, typeof(AddNoteActivity));
             StartActivity(addActivity);
+
         }
 
-        private void DeleteBtn_Click(object sender, EventArgs e)
-        {
-            var db = new DatabaseServices();
-            db.CreateDatabase();
+        //private void DeleteBtn_Click(object sender, EventArgs e)
+        //{
+        //    var db = new DatabaseServices();
+        //    db.CreateDatabase();
 
-            db.DeleteNote(ValueHolder.SelectedId);
-        }
+        //    db.DeleteNote(ValueHolder.SelectedId);
+        //}
     }
 }

@@ -66,5 +66,18 @@ namespace FragmentNoteApp
             noteToDelete.Id = ValueHolder.IdList[id];
             db.Delete(noteToDelete);
         }
+
+        public Note getOneNote(int id)
+        {
+            var table = GetAllNotes();
+            foreach (var item in table)
+            {
+                if (item.Id == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
     }
 }
