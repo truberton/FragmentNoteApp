@@ -16,7 +16,16 @@ namespace FragmentNoteApp
 {
     class DatabaseServices
     {
-        SQLiteConnection db;
+        public SQLiteConnection db;
+        public static DatabaseServices DatabaseConnection { get; set; }
+        public static List<Note> NotesList { get; set; }
+
+        public DatabaseServices()
+        {
+            CreateDatabase();
+            CreateTableWithData();
+            NotesList = GetAllNotes().ToList();
+        }
 
         public void CreateDatabase()
         {
@@ -63,11 +72,11 @@ namespace FragmentNoteApp
         public void DeleteNote(int id)
         {
             var noteToDelete = new Note();
-            noteToDelete.Id = ValueHolder.IdList[id];
+            noteToDelete.Id = id;
             db.Delete(noteToDelete);
         }
 
-        public Note getOneNote(int id)
+        public Note GetOneNote(int id)
         {
             var table = GetAllNotes();
             foreach (var item in table)

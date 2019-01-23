@@ -35,16 +35,14 @@ namespace FragmentNoteApp
             {
                 return null;
             }
+            var notes = DatabaseServices.DatabaseConnection.GetAllNotes();
 
-            var databaseService = new DatabaseServices();
-            databaseService.CreateDatabase();
-            var notes = databaseService.GetAllNotes();
-
-            List<string> notesList = new List<string>();
+            List<string> notesList = DatabaseServices.NotesList.Select(x => x.Description).ToList();
+            List<string> notesList2 = new List<string>();
 
             foreach (var item in notes)
             {
-                notesList.Add(item.Description);
+                notesList2.Add(item.Description);
             }
 
             var textView = new TextView(Activity);

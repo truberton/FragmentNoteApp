@@ -21,7 +21,7 @@ namespace FragmentNoteApp
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.add_note);
 
-            var noteBtn = FindViewById<Button>(Resource.Id.addNote);
+            var noteBtn = FindViewById<Button>(Resource.Id.addNoteBtn);
             noteBtn.Click += NoteBtn_Click;
         }
 
@@ -29,10 +29,14 @@ namespace FragmentNoteApp
         {
             string title = FindViewById<EditText>(Resource.Id.titleText).Text;
             string cont = FindViewById<EditText>(Resource.Id.contentText).Text;
-            var db = new DatabaseServices();
-            db.CreateDatabase();
 
-            db.AddNote(title, cont);
+            DatabaseServices.DatabaseConnection.AddNote(title, cont);
+            DatabaseServices.NotesList.Add(new Note
+            {
+                Title = title,
+                Description = cont
+            });
+
             FindViewById<EditText>(Resource.Id.titleText).Text = "";
             FindViewById<EditText>(Resource.Id.contentText).Text = "";
         }

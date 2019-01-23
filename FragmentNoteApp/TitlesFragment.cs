@@ -17,7 +17,6 @@ namespace FragmentNoteApp
     {
         public int selectedPlayId;
         bool showingTwoFragments;
-        DatabaseServices db;
 
         public TitlesFragment()
         {
@@ -28,21 +27,7 @@ namespace FragmentNoteApp
         {
             base.OnActivityCreated(savedInstanceState);
 
-            db = new DatabaseServices();
-            db.CreateDatabase();
-            db.CreateTableWithData();
-            var notes = db.GetAllNotes();
-
-            List<string> titles = new List<string>();
-            List<int> ids = new List<int>(); 
-            foreach (var item in notes)
-            {
-                titles.Add(item.Title);
-                ids.Add(item.Id);
-            }
-            ValueHolder.IdList = ids;
-
-            ListAdapter = new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItemActivated1, titles);
+            ListAdapter = new ArrayAdapter<String>(Activity, Android.Resource.Layout.SimpleListItemActivated1, DatabaseServices.NotesList.Select(x => x.Title).ToArray());
 
             if (savedInstanceState != null)
             {
@@ -73,12 +58,11 @@ namespace FragmentNoteApp
         void ShowPlayQuote(int playId)
         {
             selectedPlayId = playId;
-            ValueHolder.SelectedId = playId;
             if (showingTwoFragments)
             {
                 ListView.SetItemChecked(selectedPlayId, true);
 
-                var playQuoteFragment = FragmentManager.FindFragmentById(Resource.Id.note_container) as PlayNoteFragment;
+                PlayNoteFragment playQuoteFragment = FragmentManager.FindFragmentById(Resource.Id.note_container) as PlayNoteFragment;
 
                 if (playQuoteFragment == null || playQuoteFragment.PlayId != playId)
                 {
