@@ -38,23 +38,25 @@ namespace FragmentNoteApp
             var notes = DatabaseServices.DatabaseConnection.GetAllNotes();
 
             List<string> notesList = DatabaseServices.NotesList.Select(x => x.Description).ToList();
-            List<string> notesList2 = new List<string>();
 
-            foreach (var item in notes)
-            {
-                notesList2.Add(item.Description);
-            }
+            //var textView = new TextView(Activity);
+            //var padding = Convert.ToInt32(TypedValue.ApplyDimension(ComplexUnitType.Dip, 4, Activity.Resources.DisplayMetrics));
+            //textView.SetPadding(padding, padding, padding, padding);
+            //textView.TextSize = 24;
+            var editText = Activity.FindViewById<EditText>(Resource.Id.contentEditText);
+            //try
+            //{
+                editText.Text = notesList[PlayId];
+            //}
+            //catch (Exception)
+            //{
+            //    editText.Text = notesList[0];
+            //}
 
-            var textView = new TextView(Activity);
-            var padding = Convert.ToInt32(TypedValue.ApplyDimension(ComplexUnitType.Dip, 4, Activity.Resources.DisplayMetrics));
-            textView.SetPadding(padding, padding, padding, padding);
-            textView.TextSize = 24;
-            textView.Text = notesList[PlayId];
+            //var scroller = new ScrollView(Activity);
+            //scroller.AddView(textView);
 
-            var scroller = new ScrollView(Activity);
-            scroller.AddView(textView);
-
-            return scroller;
+            return null;
         }
     }
 }

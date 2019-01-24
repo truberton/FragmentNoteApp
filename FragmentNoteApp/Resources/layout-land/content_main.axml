@@ -17,5 +17,41 @@
 		android:layout_width="0px"
 		android:layout_marginTop="60dp"
 	android:layout_height="match_parent" >
+		<LinearLayout
+			android:orientation="vertical"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/linearLayout1">
+			<TextView
+				android:text="Content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/textView2" />
+			<MultiAutoCompleteTextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/contentEditText" />
+			<LinearLayout
+				android:orientation="horizontal"
+				android:minWidth="25px"
+				android:minHeight="25px"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/linearLayout2" >
+				<Button
+					android:text="Edit"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:id="@+id/editBtn" />
+				<Button
+					android:text="Delete"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:id="@+id/deleteBtn" />
+			</LinearLayout>
+		</LinearLayout>
 	</FrameLayout>
 </LinearLayout>

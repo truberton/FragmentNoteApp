@@ -29,7 +29,7 @@ namespace FragmentNoteApp
 
         public void CreateDatabase()
         {
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "mydatabase.db3");
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "mydatabase6.db3");
             db = new SQLiteConnection(dbPath);
         }
 
@@ -61,6 +61,17 @@ namespace FragmentNoteApp
                 Description = description
             };
             db.Insert(newNote);
+        }
+
+        public void UpdateNote(int id, string description)
+        {
+            var newNote = new Note
+            {
+                Id = id,
+                Title = GetOneNote(id).Title,
+                Description = description
+            };
+            db.Update(newNote);
         }
 
         public TableQuery<Note> GetAllNotes()
