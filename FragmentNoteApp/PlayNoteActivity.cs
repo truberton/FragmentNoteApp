@@ -44,6 +44,7 @@ namespace FragmentNoteApp
         {
             DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
             DatabaseServices.NotesList.RemoveAt(PlayId);
+            MainActivity._mainActivity.Recreate();
             Finish();
         }
 
@@ -52,6 +53,7 @@ namespace FragmentNoteApp
             var editText = FindViewById<EditText>(Resource.Id.contentEditText).Text;
             DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, editText);
             DatabaseServices.NotesList[PlayId].Description = editText;
+            MainActivity._mainActivity.Recreate();
             Finish();
         }
     }

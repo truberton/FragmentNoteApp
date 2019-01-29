@@ -14,6 +14,7 @@ namespace FragmentNoteApp
     public class MainActivity : AppCompatActivity
     {
         public Bundle _savedInstanceState { get; set; }
+        public static MainActivity _mainActivity { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,6 +30,7 @@ namespace FragmentNoteApp
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
+            _mainActivity = this;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)

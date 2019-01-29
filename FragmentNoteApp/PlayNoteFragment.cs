@@ -44,7 +44,14 @@ namespace FragmentNoteApp
             _editText = editText;
             var deleteBtn = Activity.FindViewById<Button>(Resource.Id.deleteBtn);
             var editBtn = Activity.FindViewById<Button>(Resource.Id.editBtn);
-            editText.Text = notesList[PlayId];
+            try
+            {
+                editText.Text = notesList[PlayId];
+            }
+            catch (Exception)
+            {
+                editText.Text = notesList[0];
+            }
             editBtn.Click += EditBtn_Click;
             deleteBtn.Click += DeleteBtn_Click;
 
