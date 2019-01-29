@@ -16,7 +16,9 @@ namespace FragmentNoteApp
     public class PlayNoteFragment : Fragment
     {
         public int PlayId => Arguments.GetInt("current_play_id", 0);
-        public EditText _editText { get; set; }
+
+        public static int StatPlayId { get; set; }
+        public static EditText StatEditText { get; set; }
 
         public static PlayNoteFragment NewInstance(int playId)
         {
@@ -38,12 +40,12 @@ namespace FragmentNoteApp
             }
             var notes = DatabaseServices.DatabaseConnection.GetAllNotes();
 
+            StatPlayId = PlayId;
+
             List<string> notesList = DatabaseServices.NotesList.Select(x => x.Description).ToList();
 
             var editText = Activity.FindViewById<EditText>(Resource.Id.contentEditText);
-            _editText = editText;
-            var deleteBtn = Activity.FindViewById<Button>(Resource.Id.deleteBtn);
-            var editBtn = Activity.FindViewById<Button>(Resource.Id.editBtn);
+            StatEditText = editText;
             try
             {
                 editText.Text = notesList[PlayId];
@@ -52,28 +54,26 @@ namespace FragmentNoteApp
             {
                 editText.Text = notesList[0];
             }
-            editBtn.Click += EditBtn_Click;
-            deleteBtn.Click += DeleteBtn_Click;
 
             return null;
         }
 
-        private void EditBtn_Click(object sender, EventArgs e)
-        {
-            DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, _editText.Text);
-            DatabaseServices.NotesList[PlayId].Description = _editText.Text;
+        //private void EditBtn_Click(object sender, EventArgs e)
+        //{
+        //    DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, _editText.Text);
+        //    DatabaseServices.NotesList[PlayId].Description = _editText.Text;
 
-            //Very important, please never forget this line.
-            Activity.Recreate();
-        }
+        //    //Very important, please never forget this line.
+        //    Activity.Recreate();
+        //}
 
-        private void DeleteBtn_Click(object sender, EventArgs e)
-        {
-            DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
-            DatabaseServices.NotesList.RemoveAt(PlayId);
+        //private void DeleteBtn_Click(object sender, EventArgs e)
+        //{
+        //    DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
+        //    DatabaseServices.NotesList.RemoveAt(PlayId);
 
-            //Very important, please never forget this line.
-            Activity.Recreate();
-        }
+        //    //Very important, please never forget this line.
+        //    Activity.Recreate();
+        //}
     }
 }

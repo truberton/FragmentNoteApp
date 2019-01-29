@@ -7,13 +7,14 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
 namespace FragmentNoteApp
 {
-    [Activity(Label = "PlayQuoteActivity")]
-    class PlayNoteActivity : Activity
+    [Activity(Label = "", Theme = "@style/AppTheme.NoActionBar")]
+    class PlayNoteActivity : AppCompatActivity
     {
         private int PlayId { get; set; }
         protected override void OnCreate(Bundle savedInstanceState)
@@ -24,6 +25,8 @@ namespace FragmentNoteApp
                 Finish();
             }
             SetContentView(Resource.Layout.view_note);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar2);
+            SetSupportActionBar(toolbar);
 
             PlayId = Intent.Extras.GetInt("current_play_id", 0);
 
@@ -33,28 +36,42 @@ namespace FragmentNoteApp
             //FragmentManager.BeginTransaction()
             //                .Add(Android.Resource.Id.Content, detailsFrag)
             //                .Commit();
-            var editBtn = FindViewById<Button>(Resource.Id.editBtn);
-            var deleteBtn = FindViewById<Button>(Resource.Id.deleteBtn);
-
-            editBtn.Click += EditBtn_Click;
-            deleteBtn.Click += DeleteBtn_Click;
         }
 
-        private void DeleteBtn_Click(object sender, EventArgs e)
+        public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
-            DatabaseServices.NotesList.RemoveAt(PlayId);
-            MainActivity._mainActivity.Recreate();
-            Finish();
+            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
+            return true;
         }
 
-        private void EditBtn_Click(object sender, EventArgs e)
+        public override bool OnOptionsItemSelected(IMenuItem item)
         {
-            var editText = FindViewById<EditText>(Resource.Id.contentEditText).Text;
-            DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, editText);
-            DatabaseServices.NotesList[PlayId].Description = editText;
-            MainActivity._mainActivity.Recreate();
-            Finish();
+            int id = item.ItemId;
+            switch (id)
+            {
+                case Resource.Id.editToolBtn:
+                    var editText = FindViewById<EditText>(Resource.Id.contentEditText).Text;
+                    DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, editText);
+                    DatabaseServices.NotesList[PlayId].Description = editText;
+                    MainActivity._mainActivity.Recreate();
+                    Finish();
+                    break;
+                case Resource.Id.deleteToolBtn:
+                    DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
+                    DatabaseServices.NotesList.RemoveAt(PlayId);
+                    //Important refresh stuff.
+                    MainActivity._mainActivity.Recreate();
+                    Finish();
+                    break;
+                default:
+                    break;
+            }
+            if (id == Resource.Id.action_settings)
+            {
+                return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

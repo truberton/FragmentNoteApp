@@ -79,6 +79,7 @@ namespace FragmentNoteApp
                 var intent = new Intent(Activity, typeof(PlayNoteActivity));
                 intent.PutExtra("current_play_id", playId);
                 StartActivity(intent);
+
             }
         }
     }

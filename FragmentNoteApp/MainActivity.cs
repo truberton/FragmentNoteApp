@@ -42,9 +42,27 @@ namespace FragmentNoteApp
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
+            if (true)
             {
-                return true;
+                switch (id)
+                {
+                    case Resource.Id.editToolBtn:
+                        DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id, PlayNoteFragment.StatEditText.Text);
+                        DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Description = PlayNoteFragment.StatEditText.Text;
+
+                        //Very important, please never forget this line.
+                        this.Recreate();
+                        break;
+                    case Resource.Id.deleteToolBtn:
+                        DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id);
+                        DatabaseServices.NotesList.RemoveAt(PlayNoteFragment.StatPlayId);
+
+                        //Very important, please never forget this line.
+                        this.Recreate();
+                        break;
+                    default:
+                        break;
+                }
             }
 
             return base.OnOptionsItemSelected(item);

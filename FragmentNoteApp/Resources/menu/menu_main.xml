@@ -8,6 +8,11 @@
         android:title="Edit"
         app:showAsAction="always"/>
   <item
+      android:id="@+id/deleteToolBtn"
+      android:orderInCategory="2"
+      android:title="Delete"
+      app:showAsAction="always"/>
+  <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
