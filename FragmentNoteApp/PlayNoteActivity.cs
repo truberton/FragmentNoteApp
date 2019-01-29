@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 
 using Android.App;
 using Android.Content;
@@ -26,10 +20,6 @@ namespace FragmentNoteApp
         private int PlayId { get; set; }
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a",
-                   typeof(Analytics), typeof(Crashes));
-            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a", typeof(Analytics), typeof(Crashes));
-
             base.OnCreate(savedInstanceState);
             if (Resources.Configuration.Orientation == Android.Content.Res.Orientation.Landscape)
             {

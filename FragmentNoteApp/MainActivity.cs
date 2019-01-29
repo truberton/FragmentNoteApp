@@ -8,6 +8,11 @@ using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Distribute;
+
 namespace FragmentNoteApp
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -18,6 +23,11 @@ namespace FragmentNoteApp
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            _mainActivity = this;
+            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a",
+       typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a", typeof(Analytics), typeof(Crashes));
+            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a", typeof(Distribute));
             DatabaseServices.DatabaseConnection = new DatabaseServices();
             //DatabaseServices.DatabaseConnection.CreateDatabase();
             //DatabaseServices.DatabaseConnection.CreateTableWithData();
@@ -71,12 +81,12 @@ namespace FragmentNoteApp
         //Add button on click.
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            View view = (View) sender;
+            View view = (View)sender;
             //Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
             //    .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
             var addActivity = new Intent(this, typeof(AddNoteActivity));
             StartActivity(addActivity);
         }
-	}
+    }
 }
 

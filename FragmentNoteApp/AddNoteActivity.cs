@@ -39,6 +39,8 @@ namespace FragmentNoteApp
 
             FindViewById<EditText>(Resource.Id.titleText).Text = "";
             FindViewById<EditText>(Resource.Id.contentText).Text = "";
+            MainActivity._mainActivity.Recreate();
+            Finish();
         }
     }
 }
