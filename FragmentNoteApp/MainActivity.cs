@@ -13,6 +13,7 @@ namespace FragmentNoteApp
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
+        public Bundle _savedInstanceState { get; set; }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

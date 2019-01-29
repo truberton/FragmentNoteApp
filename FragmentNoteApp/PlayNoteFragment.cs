@@ -16,6 +16,7 @@ namespace FragmentNoteApp
     public class PlayNoteFragment : Fragment
     {
         public int PlayId => Arguments.GetInt("current_play_id", 0);
+        public EditText _editText { get; set; }
 
         public static PlayNoteFragment NewInstance(int playId)
         {
@@ -39,24 +40,33 @@ namespace FragmentNoteApp
 
             List<string> notesList = DatabaseServices.NotesList.Select(x => x.Description).ToList();
 
-            //var textView = new TextView(Activity);
-            //var padding = Convert.ToInt32(TypedValue.ApplyDimension(ComplexUnitType.Dip, 4, Activity.Resources.DisplayMetrics));
-            //textView.SetPadding(padding, padding, padding, padding);
-            //textView.TextSize = 24;
             var editText = Activity.FindViewById<EditText>(Resource.Id.contentEditText);
-            //try
-            //{
-                editText.Text = notesList[PlayId];
-            //}
-            //catch (Exception)
-            //{
-            //    editText.Text = notesList[0];
-            //}
-
-            //var scroller = new ScrollView(Activity);
-            //scroller.AddView(textView);
+            _editText = editText;
+            var deleteBtn = Activity.FindViewById<Button>(Resource.Id.deleteBtn);
+            var editBtn = Activity.FindViewById<Button>(Resource.Id.editBtn);
+            editText.Text = notesList[PlayId];
+            editBtn.Click += EditBtn_Click;
+            deleteBtn.Click += DeleteBtn_Click;
 
             return null;
+        }
+
+        private void EditBtn_Click(object sender, EventArgs e)
+        {
+            DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayId].Id, _editText.Text);
+            DatabaseServices.NotesList[PlayId].Description = _editText.Text;
+
+            //Very important, please never forget this line.
+            Activity.Recreate();
+        }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayId].Id);
+            DatabaseServices.NotesList.RemoveAt(PlayId);
+
+            //Very important, please never forget this line.
+            Activity.Recreate();
         }
     }
 }

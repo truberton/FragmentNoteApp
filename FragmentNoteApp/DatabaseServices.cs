@@ -97,7 +97,7 @@ namespace FragmentNoteApp
                     return item;
                 }
             }
-            return null;
+            throw new Exception("Table is empty");
         }
     }
 }
