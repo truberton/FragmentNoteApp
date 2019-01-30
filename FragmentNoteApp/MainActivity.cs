@@ -15,7 +15,7 @@ using Microsoft.AppCenter.Distribute;
 
 namespace FragmentNoteApp
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
     public class MainActivity : AppCompatActivity
     {
         public Bundle _savedInstanceState { get; set; }

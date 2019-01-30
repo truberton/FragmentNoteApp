@@ -67,10 +67,6 @@ namespace FragmentNoteApp
                 default:
                     break;
             }
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
-            }
 
             return base.OnOptionsItemSelected(item);
         }
