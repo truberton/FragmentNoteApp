@@ -57,15 +57,27 @@ namespace FragmentNoteApp
                 switch (id)
                 {
                     case Resource.Id.editToolBtn:
-                        DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id, PlayNoteFragment.StatEditText.Text);
-                        DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Description = PlayNoteFragment.StatEditText.Text;
+                        try
+                        {
+                            DatabaseServices.DatabaseConnection.UpdateNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id, PlayNoteFragment.StatEditText.Text);
+                            DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Description = PlayNoteFragment.StatEditText.Text;
+                        }
+                        catch (Exception)
+                        {
+                        }
 
                         //Very important, please never forget this line.
                         this.Recreate();
                         break;
                     case Resource.Id.deleteToolBtn:
-                        DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id);
-                        DatabaseServices.NotesList.RemoveAt(PlayNoteFragment.StatPlayId);
+                        try
+                        {
+                            DatabaseServices.DatabaseConnection.DeleteNote(DatabaseServices.NotesList[PlayNoteFragment.StatPlayId].Id);
+                            DatabaseServices.NotesList.RemoveAt(PlayNoteFragment.StatPlayId);
+                        }
+                        catch (Exception)
+                        {
+                        }
 
                         //Very important, please never forget this line.
                         this.Recreate();
