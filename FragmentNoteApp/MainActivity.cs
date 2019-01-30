@@ -24,8 +24,6 @@ namespace FragmentNoteApp
         protected override void OnCreate(Bundle savedInstanceState)
         {
             _mainActivity = this;
-            AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a",
-       typeof(Analytics), typeof(Crashes));
             AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a", typeof(Analytics), typeof(Crashes));
             AppCenter.Start("72405402-098f-448e-b266-7433631d2f8a", typeof(Distribute));
             DatabaseServices.DatabaseConnection = new DatabaseServices();
